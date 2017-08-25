@@ -5,10 +5,10 @@ import { AlertModule } from 'ngx-bootstrap';
 import { AppComponent } from './app.component';
 import { GraphPaneComponent } from './graphPane/graphPane.component';
 import { TopPaneComponent } from './topPane/topPane.component';
-import { SidePaneComponent } from './sidePane/sidePane.component';
 import { DbComponent } from './database/db.component';
 import { ChartModule } from 'angular2-chartjs';
 import { AngularIndexedDB } from 'angular2-indexeddb';
+import { FormsModule} from '@angular/forms';
 
 
 
@@ -19,14 +19,14 @@ import { AngularIndexedDB } from 'angular2-indexeddb';
     AppComponent,
     GraphPaneComponent,
     TopPaneComponent,
-    SidePaneComponent,
     DbComponent
   ],
   imports: [
     BrowserModule,
     AlertModule.forRoot(),
     ChartModule,
-    HttpModule
+    HttpModule,
+    FormsModule
   ],
   exports:[],
   providers: [],

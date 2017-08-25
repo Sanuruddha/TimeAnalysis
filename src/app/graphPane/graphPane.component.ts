@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageService } from '../app.messageservice';
 
 @Component({
+  
   selector: 'graph-pane',
   templateUrl: './graphPane.component.html'
  
 })
 
-export class GraphPaneComponent {
+export class GraphPaneComponent implements OnDestroy {
+  message: any;
+  subscription: Subscription;
     type = 'line';
     data = {
       labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -22,6 +27,16 @@ export class GraphPaneComponent {
       maintainAspectRatio: true
     };
 
+
+  // constructor(private messageService: MessageService) {
+  //     // subscribe to home component messages
+  //     this.subscription = this.messageService.getMessage().subscribe(message => { this.message = message; });
+  // }
+
+  ngOnDestroy() {
+      // unsubscribe to ensure no memory leaks
+      this.subscription.unsubscribe();
+  }
 
 }
 

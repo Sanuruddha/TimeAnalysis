@@ -1,6 +1,6 @@
 {
-    "device": "TC700H",
-    "test": "Postal_1 Poster Camara Stress",
+    "device": "TC700X",
+    "test": "Postal_2 Poster Camara Stress",
     "values": [
     {"id" : 0,"Far Away" : 639.0,"Out of Poster" : 532.0,"Macro Level" : 1064.0,"Black Wall" : 467.0,"White Wall" : 570.0},
     {"id" : 1,"Far Away" : 701.0,"Out of Poster" : 530.0,"Macro Level" : 1135.0,"Black Wall" : 515.0,"White Wall" : 833.0},
