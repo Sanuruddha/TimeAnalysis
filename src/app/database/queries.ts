@@ -1,6 +1,5 @@
 import {AngularIndexedDB} from 'angular2-indexeddb';
 
-
 export class Queries{
 
     getByFields(db: any, fields: any){
@@ -18,7 +17,8 @@ export class Queries{
             }
         } 
         else {
-            console.log('Entries all displayed.');
+            alert("no such combination");
+            console.log("no such combination");
         }
     });
 

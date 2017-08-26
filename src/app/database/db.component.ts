@@ -17,19 +17,15 @@ export class DbComponent {
   private data = {}; //reads the file using the service
   private options = {}; //consist of parameters and available options for each parameter in all the files read
   private labels = []; //generates the drop downs dynamically
-  private timingMethods = []; //values ddrop down hard-coded
-  private optionKeyMapping;
+  private timingMethods = []; //test-time values for drop down hard-coded
+  private optionKeyMapping; //takes the form of {option1: "device", option2: "os"} 
   query: Queries;
   db;
   
   constructor(private _dbService: DbService, private messageService: MessageService){
-    this._dbService.getData()
-      .subscribe(resDbData => this.data = resDbData);
-      
-
+   
     this.databaseInitialization(); 
-    this.createOptionsStructure(); // this should be called before mapOptionsToKeys
-    this.mapOptionsToKeys(); //this should be called before adding data to the object store
+    this.loadFiles();
     console.log(this.optionKeyMapping);
     
     
@@ -97,8 +93,12 @@ export class DbComponent {
 
   loadFiles(){
     this.db.clear('TestObjectStore');
-    this.mapOptionsToKeys();
+    this._dbService.getData()
+    .subscribe(resDbData => this.data = resDbData);
+    this.createOptionsStructure(); // this should be called before mapOptionsToKeys
+    this.mapOptionsToKeys(); //this should be called before adding data to the object store
     this.readAndAddFile(this.data);
+
   }
 
   
@@ -139,43 +139,14 @@ export class DbComponent {
   sendMessage(): void {
     // send message to subscribers via observable subject
     this.messageService.sendMessage('Message from Home Component to App Component!');
-}
+  }
 
-clearMessage(): void {
-    // clear message
-    this.messageService.clearMessage();
-}
-    
-    //   this.db.getByKey('TestObjectStore', 1).then((person) => {
-    //     console.log(person);
-    // }, (error) => {
-    //     console.log(error);
-    
-    // });
-    
-  //   var gold = ["TC700H", "Postal_1 Poster Camara Stress"];
-  //   this.db.openCursor('TestObjectStore', (evt) => {
-  //     var cursor = evt.target.result;
-  //     if(cursor) {
-  //       if ((cursor.value.device == gold[0]) && (cursor.value.test == gold[1]) ){
-  //         console.log(cursor.value.values);
-  //         return
-  //       }
-  //       else{
-  //         cursor.continue();
-  //       }
-  //   } else {
-  //       console.log('Entries all displayed.');
-  //   }
-  // });
-
-  //   this.db.getByIndex('TestObjectStore', ["device", "test" ], ["TC700H", "Postal_1 Poster Camara Stress"]).then((person) => {
-  //     console.log("works");
-  // }, (error) => {
-  //     console.log(error);
-  
-  // });
-  
+  clearMessage(): void {
+      // clear message
+      this.messageService.clearMessage();
+  }
+      
+ 
 
 
 

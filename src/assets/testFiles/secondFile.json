@@ -1,16 +1,17 @@
 {
-    "device": "TC700X",
-    "test": "Postal_2 Poster Camara Stress",
+    "device": "TC700H",
+    "test": "postal_1_poster_camara_stress",
     "values": [
-    {"id" : 0,"Far Away" : 639.0,"Out of Poster" : 532.0,"Macro Level" : 1064.0,"Black Wall" : 467.0,"White Wall" : 570.0},
-    {"id" : 1,"Far Away" : 701.0,"Out of Poster" : 530.0,"Macro Level" : 1135.0,"Black Wall" : 515.0,"White Wall" : 833.0},
-    {"id" : 2,"Far Away" : 629.0,"Out of Poster" : 661.0,"Macro Level" : 74.0,"Black Wall" : 504.0,"White Wall" : 550.0},
-    {"id" : 3,"Far Away" : 673.0,"Out of Poster" : 591.0,"Macro Level" : 1181.0,"Black Wall" : 441.0,"White Wall" : 434.0},
-    {"id" : 4,"Far Away" : 691.0,"Out of Poster" : 648.0,"Macro Level" : 87.0,"Black Wall" : 566.0,"White Wall" : 590.0},
-    {"id" : 5,"Far Away" : 1554.0,"Out of Poster" : 591.0,"Macro Level" : 105.0,"Black Wall" : 588.0,"White Wall" : 574.0},
-    {"id" : 6,"Far Away" : 791.0,"Out of Poster" : 776.0,"Macro Level" : 85.0,"Black Wall" : 413.0,"White Wall" : 643.0},
-    {"id" : 7,"Far Away" : 629.0,"Out of Poster" : 564.0,"Macro Level" : 95.0,"Black Wall" : 478.0,"White Wall" : 641.0},
-    {"id" : 8,"Far Away" : 1606.0,"Out of Poster" : 586.0,"Macro Level" : 1188.0,"Black Wall" : 566.0,"White Wall" : 625.0},
-    {"id" : 9,"Far Away" : 767.0,"Out of Poster" : 636.0,"Macro Level" : 2075.0,"Black Wall" : 542.0,"White Wall" : 531.0}
-    ]   
+                {"id" : 0,"Far Away" : 639.0,"Out of Poster" : 532.0,"Macro Level" : 1064.0,"Black Wall" : 467.0,"White Wall" : 570.0},
+                {"id" : 1,"Far Away" : 701.0,"Out of Poster" : 530.0,"Macro Level" : 1135.0,"Black Wall" : 515.0,"White Wall" : 833.0},
+                {"id" : 2,"Far Away" : 629.0,"Out of Poster" : 661.0,"Macro Level" : 74.0,"Black Wall" : 504.0,"White Wall" : 550.0},
+                {"id" : 3,"Far Away" : 673.0,"Out of Poster" : 591.0,"Macro Level" : 1181.0,"Black Wall" : 441.0,"White Wall" : 434.0},
+                {"id" : 4,"Far Away" : 691.0,"Out of Poster" : 648.0,"Macro Level" : 87.0,"Black Wall" : 566.0,"White Wall" : 590.0},
+                {"id" : 5,"Far Away" : 1554.0,"Out of Poster" : 591.0,"Macro Level" : 105.0,"Black Wall" : 588.0,"White Wall" : 574.0},
+                {"id" : 6,"Far Away" : 791.0,"Out of Poster" : 776.0,"Macro Level" : 85.0,"Black Wall" : 413.0,"White Wall" : 643.0},
+                {"id" : 7,"Far Away" : 629.0,"Out of Poster" : 564.0,"Macro Level" : 95.0,"Black Wall" : 478.0,"White Wall" : 641.0},
+                {"id" : 8,"Far Away" : 1606.0,"Out of Poster" : 586.0,"Macro Level" : 1188.0,"Black Wall" : 566.0,"White Wall" : 625.0},
+                {"id" : 9,"Far Away" : 767.0,"Out of Poster" : 636.0,"Macro Level" : 2075.0,"Black Wall" : 542.0,"White Wall" : 531.0}
+            ]
 }
+
