@@ -23,9 +23,11 @@ export class DbComponent {
   db;
   
   constructor(private _dbService: DbService, private messageService: MessageService){
-   
+    this._dbService.getData()
+    .subscribe(resDbData => this.data = resDbData);
     this.databaseInitialization(); 
-    this.loadFiles();
+    this.createOptionsStructure(); // this should be called before mapOptionsToKeys
+    this.mapOptionsToKeys(); //this should be called before adding data to the object store
     console.log(this.optionKeyMapping);
     
     
@@ -46,11 +48,13 @@ export class DbComponent {
   mapOptionsToKeys(){
     this.optionKeyMapping = {};
     let i = 1;
+    this.optionKeyMapping["values"] =  "option" + i;
+    i++;
     for (let key in this.options){
       this.optionKeyMapping[key] = "option" + i;
       i++;
     }
-    this.optionKeyMapping["values"] =  "option" + i;
+    
   }
 
   createOptionsStructure(){
@@ -93,8 +97,7 @@ export class DbComponent {
 
   loadFiles(){
     this.db.clear('TestObjectStore');
-    this._dbService.getData()
-    .subscribe(resDbData => this.data = resDbData);
+    
     this.createOptionsStructure(); // this should be called before mapOptionsToKeys
     this.mapOptionsToKeys(); //this should be called before adding data to the object store
     this.readAndAddFile(this.data);
@@ -108,9 +111,6 @@ export class DbComponent {
       let instanceKey = this.optionKeyMapping[key];
       objectToBestored[instanceKey] = fileContent[key];
     }
-    console.log(objectToBestored);
-    console.log(this.data);
-
     //add data to the database
     this.db.add('TestObjectStore', objectToBestored).then(() => {
       console.log('fields added');
