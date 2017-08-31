@@ -1,11 +1,13 @@
 <div class="container">
         
-        <chart [type]="type" [data]="data" [options]="options"></chart>
-        <!-- <chart
-        [chartType]="'line'"
-        [datasets]="chartData"
-        [labels]="chartLabels"
-        [options]="chartOptions"
-        [legend]="true"
-        (chartClick)="onChartClick($event)"></chart> -->
+        <!-- <chart [type]="type" [data]="data" [options]="options"></chart> -->
+        <canvas baseChart 
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="lineChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
 </div>
