@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { GraphPaneComponent } from './graphPane/graphPane.component';
 import { TopPaneComponent } from './topPane/topPane.component';
 import { DbComponent } from './database/db.component';
-//import { ChartModule } from 'angular2-chartjs';
 import { ChartsModule } from 'ng2-charts';
 import { AngularIndexedDB } from 'angular2-indexeddb';
 import { FormsModule} from '@angular/forms';
+import { MessageService } from './app.messageservice';
+import { ModalModule } from 'ngx-modal';
 
 
 
@@ -27,10 +28,11 @@ import { FormsModule} from '@angular/forms';
     AlertModule.forRoot(),
     ChartsModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    ModalModule
   ],
   exports:[],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

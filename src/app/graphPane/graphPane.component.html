@@ -1,6 +1,6 @@
+
 <div class="container">
-        
-        <!-- <chart [type]="type" [data]="data" [options]="options"></chart> -->
+   
         <canvas baseChart 
         [datasets]="lineChartData"
         [labels]="lineChartLabels"
@@ -10,4 +10,20 @@
         [chartType]="lineChartType"
         (chartHover)="chartHovered($event)"
         (chartClick)="chartClicked($event)"></canvas>
+        <br/>
+                
+        <button class="btn btn-success" (click)="clearCanvas()">Clear Canvas</button>
+        <button id="normalDist" (click)="myModal.open()" [hidden]="true">open my modal</button>
+        <modal #myModal>
+            <modal-header>
+                <h1>Normal DIstribution</h1>
+            </modal-header>
+            <modal-content>
+                Hello Modal!
+            </modal-content>
+            <modal-footer>
+                <button class="btn btn-primary" (click)="myModal.close()">close</button>
+            </modal-footer>
+        </modal>
+    
 </div>

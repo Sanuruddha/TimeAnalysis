@@ -5,14 +5,18 @@ import { NgForm } from '@angular/forms';
 import { MessageService } from '../app.messageservice';
 import { Queries } from './queries';
 
+
+//import { GraphPaneComponent } from '../graphPane/graphPane.component';
+
 @Component({
   selector: 'db',
   templateUrl:'./db.component.html',
-    providers: [DbService, MessageService]
+    providers: [DbService]
  
 })
 
 export class DbComponent {
+  
   public maximumParameters = 5;
   private data = {}; //reads the file using the service
   private options = {}; //consist of parameters and available options for each parameter in all the files read
@@ -21,14 +25,18 @@ export class DbComponent {
   private optionKeyMapping; //takes the form of {option1: "device", option2: "os"} 
   query: Queries;
   db;
+  private messageService;
+  //public yAxis: any;
   
-  constructor(private _dbService: DbService, private messageService: MessageService){
+  constructor(private _dbService: DbService, messageService: MessageService){
     this._dbService.getData()
     .subscribe(resDbData => this.data = resDbData);
+    this.messageService = messageService;
     this.databaseInitialization(); 
     this.createOptionsStructure(); // this should be called before mapOptionsToKeys
     this.mapOptionsToKeys(); //this should be called before adding data to the object store
     console.log(this.optionKeyMapping);
+
     
     
   }
@@ -58,7 +66,6 @@ export class DbComponent {
   }
 
   createOptionsStructure(){
-    alert();
     for (var prop in this.data) {
       if (prop != "values"){
           if (!this.options.hasOwnProperty(prop)){
@@ -125,7 +132,12 @@ export class DbComponent {
       let transformedFields = this.transformForQuerying(graphParametersForm.value);
       console.log(transformedFields);
       this.query = new Queries();
-      this.query.getByFields(this.db, transformedFields);
+     //this.messageService.sendMessage("My Message is sent");
+      let yAxis = this.query.getByFields(this.db, transformedFields, this.sendMessage, this);
+
+      
+      
+
   }
 
   transformForQuerying(jsonObj){
@@ -136,18 +148,20 @@ export class DbComponent {
       return transform;
   }
 
-  sendMessage(): void {
-    // send message to subscribers via observable subject
-    this.messageService.sendMessage('Message from Home Component to App Component!');
-  }
-
-  clearMessage(): void {
-      // clear message
-      this.messageService.clearMessage();
-  }
+  sendMessage(yAxis: any,dbcomp : DbComponent ){
+    if (yAxis){
+      console.log(yAxis);
+      dbcomp.messageService.sendMessage(yAxis);
       
- 
-
-
-
+      
+    }
+    else{
+      return
+    }
+    
+  }
+  clearMessage(): void {
+    // clear message
+    this.messageService.clearMessage();
+  }
 }
