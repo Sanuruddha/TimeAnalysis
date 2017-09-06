@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
+
+import { Component, ViewChild } from '@angular/core';
 import {AngularIndexedDB} from 'angular2-indexeddb';
 import { DbService } from './db.service';
 import { NgForm } from '@angular/forms';
 import { MessageService } from '../app.messageservice';
 import { Queries } from './queries';
+import { ModalDirective } from 'ngx-bootstrap';
+//import { GraphPaneComponent } from '../graphPane/graphPane.component';
 
 @Component({
   selector: 'db',
   templateUrl:'./db.component.html',
-    providers: [DbService, MessageService]
+    providers: [DbService]
  
 })
 
 export class DbComponent {
+  @ViewChild('bootstrapModal') public bootstrapModal:ModalDirective;
+  
   public maximumParameters = 5;
   private data = {}; //reads the file using the service
   private options = {}; //consist of parameters and available options for each parameter in all the files read
@@ -21,16 +26,19 @@ export class DbComponent {
   private optionKeyMapping; //takes the form of {option1: "device", option2: "os"} 
   query: Queries;
   db;
+  private msg = {};
+  private messageService;
   
-  constructor(private _dbService: DbService, private messageService: MessageService){
+  constructor(private _dbService: DbService, messageService: MessageService){
     this._dbService.getData()
-    .subscribe(resDbData => this.data = resDbData);
+    .subscribe(resDbData => {this.data = resDbData; this.initializeDropDowns()});
+    this.messageService = messageService;
     this.databaseInitialization(); 
+
+  }
+  initializeDropDowns(){
     this.createOptionsStructure(); // this should be called before mapOptionsToKeys
     this.mapOptionsToKeys(); //this should be called before adding data to the object store
-    console.log(this.optionKeyMapping);
-    
-    
   }
 
   databaseInitialization(){
@@ -58,7 +66,6 @@ export class DbComponent {
   }
 
   createOptionsStructure(){
-    alert();
     for (var prop in this.data) {
       if (prop != "values"){
           if (!this.options.hasOwnProperty(prop)){
@@ -97,9 +104,7 @@ export class DbComponent {
 
   loadFiles(){
     this.db.clear('TestObjectStore');
-    
-    this.createOptionsStructure(); // this should be called before mapOptionsToKeys
-    this.mapOptionsToKeys(); //this should be called before adding data to the object store
+    this.initializeDropDowns();
     this.readAndAddFile(this.data);
 
   }
@@ -121,11 +126,13 @@ export class DbComponent {
   }
 
   sendToGenerateGraph(graphParametersForm: NgForm){
-      console.log(graphParametersForm.value);
-      let transformedFields = this.transformForQuerying(graphParametersForm.value);
-      console.log(transformedFields);
-      this.query = new Queries();
-      this.query.getByFields(this.db, transformedFields);
+    this.msg = {};
+    this.msg["legendInfo"] = graphParametersForm.value;
+    let transformedFields = this.transformForQuerying(graphParametersForm.value);
+    console.log(transformedFields);
+    this.query = new Queries();
+    let yAxis = this.query.getByFields(this.db, transformedFields, this.sendMessage, this);
+  
   }
 
   transformForQuerying(jsonObj){
@@ -136,18 +143,31 @@ export class DbComponent {
       return transform;
   }
 
-  sendMessage(): void {
-    // send message to subscribers via observable subject
-    this.messageService.sendMessage('Message from Home Component to App Component!');
-  }
-
-  clearMessage(): void {
-      // clear message
-      this.messageService.clearMessage();
-  }
+  sendMessage(yAxis: any,dbcomp : DbComponent ){
+    if (yAxis){
+      console.log(yAxis);
+      dbcomp.msg["yAxis"] = yAxis;
+      dbcomp.messageService.sendMessage(dbcomp.msg);
       
- 
+      
+    }
+    else{
+      return
+    }
+    
+  }
+  clearMessage(): void {
+    // clear message
+    this.messageService.clearMessage();
+  }
 
+  
+  showModal(){
+    this.bootstrapModal.show();
+  }
 
+  closeModal(){
+      this.bootstrapModal.hide();
+  }
 
 }

@@ -1,11 +1,44 @@
+
 <div class="container">
-        
-        <chart [type]="type" [data]="data" [options]="options"></chart>
-        <!-- <chart
-        [chartType]="'line'"
-        [datasets]="chartData"
-        [labels]="chartLabels"
-        [options]="chartOptions"
-        [legend]="true"
-        (chartClick)="onChartClick($event)"></chart> -->
+   
+        <canvas baseChart
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="lineChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
+        <br/>
+                
+        <button class="btn btn-success"  (click)="clearCanvas()">Clear Canvas</button>
+       
+        <button id="openModalButton" [hidden]="true" (click)="myModal.open()">open my modal</button>
+        <modal #myModal>
+            <modal-header>
+                <h2>Normal Distribution</h2>
+                <h3>Standard Deviation: {{stdDeviation}}</h3>
+                <h3>Mean: {{mean}} </h3>
+            </modal-header>
+            <modal-content>
+                    <div ng-show="chartTabShow">
+                    <canvas baseChart width="400" height="400"
+                    [datasets]="lineChartData2"
+                    [labels]="lineChartLabels2"
+                    [options]="lineChartOptions2"
+                    [colors]="lineChartColors2"
+                    [legend]="lineChartLegend2"
+                    [chartType]="lineChartType2"
+                    ></canvas>
+                    </div>
+                    
+            </modal-content>
+            <modal-footer>
+                <button class="btn btn-primary" (click)="myModal.close()">close</button>
+            </modal-footer>
+        </modal>
+     
 </div>
+
+

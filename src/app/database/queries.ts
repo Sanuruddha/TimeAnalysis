@@ -2,16 +2,15 @@ import {AngularIndexedDB} from 'angular2-indexeddb';
 
 export class Queries{
 
-    getByFields(db: any, fields: any){
-        console.log("methanata awa");
+    getByFields(db: any, fields: any, callback, dbcomp){
+        
         fields = this.deleteByVal(fields);
-        console.log("critical");
-        console.log(fields);
+      
         db.openCursor('TestObjectStore', (evt) => {
         var cursor = evt.target.result;
         if(cursor) {
             let count = Object.keys(fields).length;
-            let available = true;
+            let available = false;
             let i=2;
             while((i<= count)){
                 if (cursor.value["option"+i] == fields["option"+i]){
@@ -25,8 +24,8 @@ export class Queries{
             }
             if (available == true && (i==count+1)){
                 console.log("succesful search");
-                console.log(cursor.value.option1);
-                return
+                let yAxis = this.extractByValue(cursor.value.option1,fields.option1);
+                callback(yAxis, dbcomp);
             }
             else{
                 cursor.continue();
@@ -34,21 +33,29 @@ export class Queries{
         } 
         else {
             alert("no such combination");
-            console.log("no such combination");
+            return;
      }
     });
 
     }
 
+    //convert fileds where optionX:None to optionX:undefined"
     deleteByVal(obj: any) {
         for (var key in obj) {
             if (obj[key] == "None") 
-                delete obj[key];
+                obj[key] = undefined;
         }
         return(obj);
     }
     
-    
+    extractByValue(valueSet: any[], testValue){
+        let count = valueSet.length;
+        let yAxis = [];
+        for (let i=0; i<count; i++){
+            yAxis.push(valueSet[i][testValue]);
+        }
 
+        return yAxis;
+    }
 
 }
