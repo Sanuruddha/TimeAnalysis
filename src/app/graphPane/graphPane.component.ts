@@ -50,6 +50,7 @@ export class GraphPaneComponent implements OnDestroy{
 
     public chartHovered(event, active):void {
       
+      ;
     }
 
     createChart(){
@@ -66,6 +67,10 @@ export class GraphPaneComponent implements OnDestroy{
           
       }
 
+
+
+      
+  
       this.lineChartColors = [
         { // grey
           backgroundColor: 'rgba(148,159,177,0.2)',
